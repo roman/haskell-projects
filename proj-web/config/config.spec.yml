@@ -1,0 +1,118 @@
+etc/filepaths:
+  - ./config/settings.yml
+  # ▲ this guy up here has less precedence that this guy down here ▼
+  - /usr/local/etc/production-settings.yml
+
+etc/cli:
+  header: "web-proj - An example webserver program"
+  desc: "This program serves as a learning exercise for yesod web applications"
+
+etc/entries:
+  static-dir:
+    etc/spec:
+      default: static
+      env: STATIC_DIR
+      cli:
+        input: option
+        type: string
+        required: false
+        long: static-dir
+
+  host:
+    etc/spec:
+      default: "*4" # any IPv4 host
+      env: HOST
+
+  port:
+    etc/spec:
+      default: 3000
+      # NB: The port `yesod devel` uses is distinct from this value. Set the `yesod devel` port from the command line.
+      env: PORT
+      cli:
+        required: false
+        long: port
+        short: p
+        input: option
+        type: number
+        metavar: PORT
+
+  ip-from-header:
+    etc/spec:
+      default: false
+      env: IP_FROM_HEADER
+      cli:
+        required: false
+        type: switch
+        input: option
+        long: ip-from-header
+
+  # Default behavior: determine the application root from the request headers.
+  # Uncomment to set an explicit approot
+  approot:
+    etc/spec:
+      default: http://localhost:3000
+      env: APPROOT
+
+  # By default, `yesod devel` runs in development, and built executables use
+  # production settings (see below). To override this, use the following:
+  #
+  development:
+    etc/spec:
+      default: false
+      env: DEV_MODE
+
+
+  # Optional values with the following production defaults.
+  # In development, they default to the inverse.
+  #
+  detailed-logging: false
+  should-log-all: false
+  reload-templates: false
+  mutable-static: false
+  skip-combining: false
+  auth-dummy-login : false
+
+  database:
+    user:
+      etc/spec:
+        default: proj-web
+        env: PGUSER
+
+    password:
+      etc/spec:
+        default: proj-web
+        sensitive: true
+        env: PGPASS
+
+    host:
+      etc/spec:
+        default: localhost
+        env: PGHOST
+
+    port:
+      etc/spec:
+        default: 5432
+        env: PGPORT
+
+    # See config/test-settings.yml for an override during tests
+    database:
+      etc/spec:
+        default: proj-web
+        env: PGDATABASE
+
+    poolsize:
+      etc/spec:
+        default: 10
+        env: PGPOOLSIZE
+
+  copyright: Insert copyright statement here
+
+  github-secret:
+    etc/spec:
+      env: HASKPROJ_GITHUB_SECRET
+      sensitive: true
+
+  github-client-id:
+    etc/spec:
+      env: HASKPROJ_GITHUB_CLIENT_ID
+      sensitive: true

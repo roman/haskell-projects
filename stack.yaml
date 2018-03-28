@@ -6,4 +6,11 @@ packages:
 
 extra-deps:
 - yesod-auth-oauth2-0.4.0.1
+- rio-0.0.3.0
+- etc-0.3.0.0
 
+flags:
+  etc:
+    yaml: true
+    extra: true
+    cli: true
